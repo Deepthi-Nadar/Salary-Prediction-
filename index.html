@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tt frontent</title>
+</head>
+<body>
+    <h1>Salary Prediction</h1>
+    
+
+    <input type="number" id="experience" placeholder="Years of Experience"><br><br>
+    <input type="text" id="job" placeholder="Job Title"><br><br>
+
+    <button onclick="predict()">Predict Salary</button>
+
+    <h2 id="result"></h2>
+
+    <script>
+        async function predict() {
+            const experience = document.getElementById('experience').value;
+            const job = document.getElementById('job').value;
+
+            const response = await fetch('http://localhost:8000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ YearsExperience: parseFloat(experience), jobTitle: job })
+            });
+
+            const data = await response.json();
+            document.getElementById("result").innerText = 
+                "Predicted Salary: " + data["predicted salary is"];
+        }
+    </script>
+</body>
+</html>
